@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.JMenuItem" name="jMenuItem1">
       <Properties>
@@ -24,18 +24,24 @@
                 <Property name="text" type="java.lang.String" value="Crear base de datos"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mi_crearBDMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_crearBDActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mi_borrarBD">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Borrar base de datos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_borrarBDActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mi_salir">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_salirActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -48,6 +54,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de proveedores"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_gestor_provActionPerformed"/>
+              </Events>
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="menu_consulta_prov">
               <Properties>
@@ -78,6 +87,14 @@
             <Property name="text" type="java.lang.String" value="Piezas"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mi_gestor_piezas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de piezas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_gestor_piezasActionPerformed"/>
+              </Events>
+            </MenuItem>
             <Menu class="javax.swing.JMenu" name="menu_consulta_piezas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consulta de piezas"/>
@@ -93,11 +110,6 @@
                     <Property name="text" type="java.lang.String" value="Por Nombre"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="mi_gestor_piezas">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de piezas"/>
-                  </Properties>
-                </MenuItem>
               </SubComponents>
             </Menu>
           </SubComponents>
@@ -111,6 +123,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de proyectos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_gestor_proyecActionPerformed"/>
+              </Events>
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="menu_consulta_proyec">
               <Properties>
@@ -179,6 +194,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>

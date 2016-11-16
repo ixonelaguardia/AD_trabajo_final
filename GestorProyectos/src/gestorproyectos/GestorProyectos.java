@@ -34,6 +34,9 @@ public class GestorProyectos {
         
         Principal principal = new Principal();
         principal.setVisible(true);
+        
+        
+
         /*      PRUEBA CONEXION
        
       		 //Cargar el driver
