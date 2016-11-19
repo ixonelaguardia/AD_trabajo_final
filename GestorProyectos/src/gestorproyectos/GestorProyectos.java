@@ -34,6 +34,9 @@ public class GestorProyectos {
         
         Principal principal = new Principal();
         principal.setVisible(true);
+        
+        
+
         /*      PRUEBA CONEXION
        
       		 //Cargar el driver
@@ -54,5 +57,13 @@ public class GestorProyectos {
 		 sentencia.close();
                  conexion.close();
          */
+        
+                         
+                   /*      String sql = “INSERT INTO departamentos VALUES(?,?,?)”;
+PreparedStatement sentencia = conexión.prepareStatement(sql);
+sentencia.setInt(1, Integer.parseInt(dep));
+sentencia.setString(2, dnombre);
+sentencia.setString(3, loc);
+int filas = sentencia.executeUpdate();*/
     }
 }

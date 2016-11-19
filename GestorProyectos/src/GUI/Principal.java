@@ -8,34 +8,39 @@ package GUI;
 import com.mysql.jdbc.Connection;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
 
 import java.io.File;
-import java.sql.DriverManager; 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.*;
+
 /**
  *
  * @author Ixone
  */
-public class Principal extends JFrame{
-//public class Principal extends JFrame implements ActionListener{
+//public class Principal extends JFrame {
+public class Principal extends JFrame {
+
+    // VARIABLES
+    private Connection c;
+    private boolean conexion;
 
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
+        this.conexion = false;
     }
 
-    public Principal(Connection c) {
-        this.c = c;
-
-    }
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,10 +65,10 @@ public class Principal extends JFrame{
         mi_prov_nombre = new javax.swing.JMenuItem();
         mi_prov_direc = new javax.swing.JMenuItem();
         menu_piezas = new javax.swing.JMenu();
+        mi_gestor_piezas = new javax.swing.JMenuItem();
         menu_consulta_piezas = new javax.swing.JMenu();
         mi_piezas_codigo = new javax.swing.JMenuItem();
         mi_piezas_nombre = new javax.swing.JMenuItem();
-        mi_gestor_piezas = new javax.swing.JMenuItem();
         menu_proyec = new javax.swing.JMenu();
         mi_gestor_proyec = new javax.swing.JMenuItem();
         menu_consulta_proyec = new javax.swing.JMenu();
@@ -82,23 +87,38 @@ public class Principal extends JFrame{
         jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("jLabel1");
 
         menu_bd.setText("Base de datos");
 
         mi_crearBD.setText("Crear base de datos");
-        mi_crearBD.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mi_crearBDMouseClicked(evt);
+        mi_crearBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_crearBDActionPerformed(evt);
             }
         });
         menu_bd.add(mi_crearBD);
 
         mi_borrarBD.setText("Borrar base de datos");
+        mi_borrarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_borrarBDActionPerformed(evt);
+            }
+        });
         menu_bd.add(mi_borrarBD);
 
         mi_salir.setText("Salir");
+        mi_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_salirActionPerformed(evt);
+            }
+        });
         menu_bd.add(mi_salir);
 
         jMenuBar1.add(menu_bd);
@@ -106,6 +126,11 @@ public class Principal extends JFrame{
         menu_prov.setText("Proveedores");
 
         mi_gestor_prov.setText("Gestión de proveedores");
+        mi_gestor_prov.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_gestor_provActionPerformed(evt);
+            }
+        });
         menu_prov.add(mi_gestor_prov);
 
         menu_consulta_prov.setText("Consulta de proveedores");
@@ -125,6 +150,14 @@ public class Principal extends JFrame{
 
         menu_piezas.setText("Piezas");
 
+        mi_gestor_piezas.setText("Gestión de piezas");
+        mi_gestor_piezas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_gestor_piezasActionPerformed(evt);
+            }
+        });
+        menu_piezas.add(mi_gestor_piezas);
+
         menu_consulta_piezas.setText("Consulta de piezas");
 
         mi_piezas_codigo.setText("Por Código");
@@ -133,9 +166,6 @@ public class Principal extends JFrame{
         mi_piezas_nombre.setText("Por Nombre");
         menu_consulta_piezas.add(mi_piezas_nombre);
 
-        mi_gestor_piezas.setText("Gestión de piezas");
-        menu_consulta_piezas.add(mi_gestor_piezas);
-
         menu_piezas.add(menu_consulta_piezas);
 
         jMenuBar1.add(menu_piezas);
@@ -143,6 +173,11 @@ public class Principal extends JFrame{
         menu_proyec.setText("Proyectos");
 
         mi_gestor_proyec.setText("Gestión de proyectos");
+        mi_gestor_proyec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_gestor_proyecActionPerformed(evt);
+            }
+        });
         menu_proyec.add(mi_gestor_proyec);
 
         menu_consulta_proyec.setText("Consulta de proyectos");
@@ -201,24 +236,198 @@ public class Principal extends JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mi_crearBDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mi_crearBDMouseClicked
-        // TODO add your handling code here:
-        if (evt.getSource() == mi_crearBD){
+    private void mi_crearBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_crearBDActionPerformed
 
-            jLabel1.setText("click!");
+        // CREAR CONEXIÓN E INSERTAR DATOS MUESTRA
+        // ¿Existe la conexión?
+        if (!conexion) {
+            try {
+                if (c == null) {
+                    crearConexion();
+                }
+                this.jLabel1.setText("CONEXION OK");
+                if (ejecutarScript(new File("..\\DatosMuestra.sql"))) {
+                    String m = this.jLabel1.getText() + "// datos cargados OK";
+                    this.jLabel1.setText(m);
+                } else {
+                    this.jLabel1.setText("ERROR cargando datos");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            // ADVERTENCIA
+            //   this.jLabel1.setText("la conexión ya estaba creada");
+            Advertencia a = new Advertencia();
+            a.setTexto("La conexión ya estaba creada");
+            a.setVisible(true);
+
         }
-    }//GEN-LAST:event_mi_crearBDMouseClicked
+
+    }//GEN-LAST:event_mi_crearBDActionPerformed
+
+    private void mi_borrarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_borrarBDActionPerformed
+
+        // TODO add your handling code here:
+        if (!conexion) {
+            /*       Advertencia a = new Advertencia();
+                a.setTexto("La BD no está creada");
+                a.setVisible(true);*/
+            conexionNoCreada();
+        } else {
+            try {
+                // BORRAR BD
+                if (ejecutarScript(new File("..\\BorrarDatos.sql"))) {
+                    this.jLabel1.setText("Conexion cerrada y datos borrados.");
+                    try {
+                        c.close();
+                        this.conexion = false;
+                        System.out.println(c.toString());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_mi_borrarBDActionPerformed
+
+    private void mi_gestor_provActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_gestor_provActionPerformed
+        // TODO add your handling code here:
+        if (!conexion) {
+            conexionNoCreada();
+        } else {
+            GestionDatos g = new GestionDatos();
+
+            g.setCon(c);
+            try {
+                g.opcion("PROVEEDOR");
+            } catch (SQLException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            g.setVisible(true);
+
+        }
+    }//GEN-LAST:event_mi_gestor_provActionPerformed
+
+    private void mi_gestor_piezasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_gestor_piezasActionPerformed
+        // TODO add your handling code here:
+        if (!conexion) {
+            conexionNoCreada();
+        } else {
+            GestionDatos g = new GestionDatos();
+
+            g.setCon(c);
+            try {
+                g.opcion("PIEZA");
+            } catch (SQLException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            g.setVisible(true);
+
+        }
+    }//GEN-LAST:event_mi_gestor_piezasActionPerformed
+
+    private void mi_gestor_proyecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_gestor_proyecActionPerformed
+        // TODO add your handling code here:
+        if (!conexion) {
+            conexionNoCreada();
+        } else {
+            GestionDatos g = new GestionDatos();
+            g.setCon(c);
+            try {
+                g.opcion("PROYECTO");
+            } catch (SQLException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            g.setVisible(true);
+        }
+    }//GEN-LAST:event_mi_gestor_proyecActionPerformed
+
+    private void mi_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_salirActionPerformed
+        try {
+            // TODO add your handling code here:
+            salir();
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mi_salirActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            // TODO add your handling code here:
+            salir();
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_formWindowClosing
 
     /*
     MÉTODOS
-    */
-    
-    private boolean cargarDatos(){
-        File scriptFile = new File("../../../DatosMuestra");
-        System.out.println(scriptFile.getName());
-        return true;
+     */
+    private boolean ejecutarScript(File f) throws SQLException {
+        BufferedReader entrada = null;
+
+        try {
+            entrada = new BufferedReader(new FileReader(f));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String linea = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        String salto = System.getProperty("line.separator");
+
+        try {
+            while ((linea = entrada.readLine()) != null) {
+                stringBuilder.append(linea);
+                stringBuilder.append(salto);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String consulta = stringBuilder.toString();
+        Statement sents = null;
+        int resultado = 0;
+        if (c == null) {
+            crearConexion();
+        }
+
+        try {
+            sents = c.createStatement();
+            resultado = sents.executeUpdate(consulta);
+            sents.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (resultado > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
+    private void conexionNoCreada() {
+        Advertencia a = new Advertencia();
+        a.setTexto("La BD no está creada");
+        a.setVisible(true);
+    }
+
+    private void crearConexion() throws SQLException {
+        this.c = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.33.10/scotchbox?allowMultiQueries=true", "root", "root");
+        this.conexion = true;
+    }
+
+    private void salir() throws SQLException {
+        ejecutarScript(new File("..\\BorrarDatos.sql"));
+        c.close();
+        // System.exit(0);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -253,9 +462,7 @@ public class Principal extends JFrame{
             }
         });
     }
-    
-    // VARIABLES
-    private Connection c ;
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -290,7 +497,5 @@ public class Principal extends JFrame{
     private javax.swing.JMenuItem mi_sumi_piezas;
     private javax.swing.JMenuItem mi_sumi_prov;
     // End of variables declaration//GEN-END:variables
-
-
 
 }
