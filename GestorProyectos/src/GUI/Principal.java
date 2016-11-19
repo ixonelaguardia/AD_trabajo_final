@@ -295,11 +295,43 @@ public class Principal extends JFrame {
     }//GEN-LAST:event_mi_borrarBDActionPerformed
 
     private void mi_gestor_provActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_gestor_provActionPerformed
+<<<<<<< HEAD
+=======
         // TODO add your handling code here:
         if (!conexion) {
             conexionNoCreada();
         } else {
             GestionDatos g = new GestionDatos();
+
+            g.setCon(c);
+            g.opcion("PROVEEDOR");
+            g.setVisible(true);
+
+        }
+    }//GEN-LAST:event_mi_gestor_provActionPerformed
+
+    private void mi_gestor_piezasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_gestor_piezasActionPerformed
+        // TODO add your handling code here:
+        if (!conexion) {
+            conexionNoCreada();
+        } else {
+            GestionDatos g = new GestionDatos();
+
+            g.setCon(c);
+            g.opcion("PIEZA");
+            g.setVisible(true);
+
+        }
+    }//GEN-LAST:event_mi_gestor_piezasActionPerformed
+
+    private void mi_gestor_proyecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_gestor_proyecActionPerformed
+>>>>>>> origin/master
+        // TODO add your handling code here:
+        if (!conexion) {
+            conexionNoCreada();
+        } else {
+            GestionDatos g = new GestionDatos();
+<<<<<<< HEAD
 
             g.setCon(c);
             try {
@@ -362,6 +394,30 @@ public class Principal extends JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
+=======
+            g.setCon(c);
+            g.opcion("PROYECTO");
+            g.setVisible(true);
+        }
+    }//GEN-LAST:event_mi_gestor_proyecActionPerformed
+
+    private void mi_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_salirActionPerformed
+        try {
+            // TODO add your handling code here:
+            salir();
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mi_salirActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            // TODO add your handling code here:
+            salir();
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+>>>>>>> origin/master
 
     }//GEN-LAST:event_formWindowClosing
 

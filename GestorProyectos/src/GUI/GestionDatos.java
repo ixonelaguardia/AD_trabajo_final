@@ -206,20 +206,24 @@ public class GestionDatos extends javax.swing.JFrame {
         btn_insert.setText("Insertar");
 
         btn_update.setText("Modificar");
+
         btn_update.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_updateMouseClicked(evt);
             }
         });
 
+
         btn_limpiar.setText("Limpiar");
 
         btn_delete.setText("Eliminar");
+
         btn_delete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_deleteMouseClicked(evt);
             }
         });
+
 
         javax.swing.GroupLayout tab1Layout = new javax.swing.GroupLayout(tab1);
         tab1.setLayout(tab1Layout);
@@ -354,6 +358,7 @@ public class GestionDatos extends javax.swing.JFrame {
         );
 
         btn_ejecutar.setText("Ejecutar consulta");
+
         btn_ejecutar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_ejecutarMouseClicked(evt);
@@ -375,6 +380,7 @@ public class GestionDatos extends javax.swing.JFrame {
         lbl_reg_total.setText("jLabel5");
 
         btn_primero.setText("<<");
+
         btn_primero.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_primeroMouseClicked(evt);
@@ -401,6 +407,13 @@ public class GestionDatos extends javax.swing.JFrame {
                 btn_ultimoMouseClicked(evt);
             }
         });
+
+
+      /*  btn_anterior.setText("<");
+
+        btn_siguiente.setText(">");
+
+        btn_ultimo.setText(">>");*/
 
         javax.swing.GroupLayout tab2Layout = new javax.swing.GroupLayout(tab2);
         tab2.setLayout(tab2Layout);
@@ -504,6 +517,7 @@ public class GestionDatos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_codigoActionPerformed
 
+
     private void tf_codigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_codigoKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -601,6 +615,7 @@ public class GestionDatos extends javax.swing.JFrame {
     *   MÉTODOS
      */
     public void opcion(String o) throws SQLException {
+
         this.opcion = o.toUpperCase();
         switch (this.opcion) {
             case "PROVEEDOR":
@@ -664,7 +679,8 @@ public class GestionDatos extends javax.swing.JFrame {
         this.tf_ciudad1.setVisible(false);
     }
 
-    private void obtenerProveedores() throws SQLException {
+   
+   private void obtenerProveedores() throws SQLException {
         if (this.con != null) {
 
             // Preparamos la consulta
@@ -916,6 +932,7 @@ public class GestionDatos extends javax.swing.JFrame {
         }
         return filas;
     }
+
 
     /**
      * @param args the command line arguments

@@ -214,7 +214,10 @@
                 <Component class="javax.swing.JTextField" name="tf_codigo">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_codigoActionPerformed"/>
+<<<<<<< HEAD
                     <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tf_codigoKeyPressed"/>
+=======
+>>>>>>> origin/master
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="tf_nombre">
@@ -261,9 +264,12 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modificar"/>
               </Properties>
+<<<<<<< HEAD
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_updateMouseClicked"/>
               </Events>
+=======
+>>>>>>> origin/master
             </Component>
             <Component class="javax.swing.JButton" name="btn_limpiar">
               <Properties>
@@ -274,9 +280,12 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
+<<<<<<< HEAD
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_deleteMouseClicked"/>
               </Events>
+=======
+>>>>>>> origin/master
             </Component>
           </SubComponents>
         </Container>
@@ -516,17 +525,23 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ejecutar consulta"/>
               </Properties>
+<<<<<<< HEAD
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_ejecutarMouseClicked"/>
               </Events>
+=======
+>>>>>>> origin/master
             </Component>
             <Component class="javax.swing.JButton" name="btn_baja">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Baja"/>
               </Properties>
+<<<<<<< HEAD
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_bajaMouseClicked"/>
               </Events>
+=======
+>>>>>>> origin/master
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_reg_actual">
               <Properties>
@@ -550,33 +565,45 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;&lt;"/>
               </Properties>
+<<<<<<< HEAD
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_primeroMouseClicked"/>
               </Events>
+=======
+>>>>>>> origin/master
             </Component>
             <Component class="javax.swing.JButton" name="btn_anterior">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;"/>
               </Properties>
+<<<<<<< HEAD
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_anteriorMouseClicked"/>
               </Events>
+=======
+>>>>>>> origin/master
             </Component>
             <Component class="javax.swing.JButton" name="btn_siguiente">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&gt;"/>
               </Properties>
+<<<<<<< HEAD
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_siguienteMouseClicked"/>
               </Events>
+=======
+>>>>>>> origin/master
             </Component>
             <Component class="javax.swing.JButton" name="btn_ultimo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
               </Properties>
+<<<<<<< HEAD
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_ultimoMouseClicked"/>
               </Events>
+=======
+>>>>>>> origin/master
             </Component>
           </SubComponents>
         </Container>
